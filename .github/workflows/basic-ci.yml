@@ -1,0 +1,32 @@
+name: Basic SimpleBank CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download your code
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Foundry
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      # Step 3: Install dependencies (forge-std)
+      - name: Install dependencies
+        run: forge install
+
+      # Step 4: Build contracts (like we did with forge build)
+      - name: Build contracts
+        run: forge build
+
+      # Step 5: Run tests(like we did with forge test)
+      - name: Run tests
+        run: forge test -vv
